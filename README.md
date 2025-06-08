@@ -2,14 +2,14 @@
 
 ## 📝 项目简介
 
-这是一个专门用于处理和分析对话数据的工具集合。主要用于处理语音识别（ASR）结果，进行说话人合并，并利用 Qwen API 进行智能分析。
+根据某电视剧处理语音识别（ASR）结果，进行说话人合并，使用72-B Qwen蒸馏数据。
 
 ## ✨ 核心功能
-
+- ASR数据提取：提取音视频中的对话
 - ASR结果解析：将ASR原始输出转换为结构化JSON数据
-- 说话人合并：基于时间戳智能合并同一说话人的连续对话
-- 智能分析：接入Qwen API实现对话内容的智能分析和错别字纠正
-- 特殊处理：支持提取特定说话人（如"皇上"）的对话内容
+- 说话人合并：基于时间戳合并同一说话人的连续对话
+- 获取某人对话：提取特定说话人的对话内容
+- 智能分析：ASR提取可能会有错误，以及获取对话可能不连贯，使用Qwen API实现对话内容的智能分析和错别字纠正
 - 数据泛化：通过api.py进行数据泛化和动态采样，生成高质量数据集
 - 日志追踪：完整的处理过程日志记录
 
@@ -17,17 +17,23 @@
 
 ```
 project/
-├── data/                # 数据存储目录
-│   ├── asr_result/     # ASR原始结果
-│   ├── parsed_results/ # 解析后的数据
-│   ├── merge_results/  # 合并后的数据
-│   └── qwenapi_result/ # API分析结果
-├── logs/               # 日志文件目录
-├── absdata.py         # ASR数据解析模块
-├── merge_speaker.py   # 说话人合并模块
-├── qwenapi.py        # Qwen API交互模块
-├── api.py            # 数据泛化与采样模块
-└── requirements.txt   # 项目依赖文件
+├── data/                    # 数据存储目录
+│   ├── raw_data/           # 原始数据目录
+│   ├── asr_result/         # ASR识别结果
+│   ├── extracted_data/     # 提取的对话数据
+│   ├── parsed_results/     # 解析后的数据
+│   ├── merge_results/      # 合并后的数据
+│   ├── qwenapi_result/     # API分析结果
+│   └── final_dataset/      # 最终生成的数据集
+├── logs/                   # 日志文件目录
+├── ext_data.py       # 数据提取脚本
+├── to_json.py        # JSON转换脚本
+├── merge_speaker.py  # 说话人合并脚本
+├── find_huang.py     # 特定说话人提取脚本
+├── qwenapi.py       # Qwen API交互脚本
+└── api.py           # 数据泛化与采样脚本
+├── requirements.txt     # 项目依赖文件
+└── README.md           # 项目说明文档
 ```
 
 ## 🚀 使用指南
